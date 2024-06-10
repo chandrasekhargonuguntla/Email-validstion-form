@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email validation form</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <style>
+       *{
+        margin:0;
+        padding:0;
+        font-family:"poppins";
+        box-sizing:border-box;
+       }
+       body{
+        min-height:100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: darkblue;
+       }
+       .container{
+         position: relative;
+         max-width:370px;
+         background-color:white;
+         width:100%;
+         padding:25px;
+         border-radius:8px;
+       }
+       .container header{
+        font-size:32px;
+        font-weight:600;
+        color:black;
+
+       }
+       .container form{
+        margin-top:30px;
+       }
+       form .faild{
+       margin-bottom:20px;
+       }
+       form .faild .sup{
+        margin-top:0px;
+    
+       }
+      form .input-faild{
+        position: relative;
+        height:55px;
+        width:100px;
+        background-color:red;
+      }
+      .input-faild input{
+        height:100%;
+        width:300%;
+        border-color: black;
+        border-radius:8px;
+        font-size:20px;
+      }
+      .error{
+        display: flex;
+        margin-top:5px;
+        color:red;
+    
+      }
+      .error .a span{
+      margin-right:5px;
+      font-size:21px;
+      } 
+      .button{
+        margin:25px 0px 6px;
+      }
+      .button input{
+        width:95%;
+        height:50px;
+        color:white;
+        font-size:16;
+        background-color:rgb(86, 210, 86);
+        cursor:pointer;
+        font-size:30px;
+        border-radius:8px;
+     
+      }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>Signup</header>
+
+          <form action="#">
+            <div class="faild">
+                <div class="input-faild email-faild">
+            <input type="email" placeholder="Enter your email" />
+        </div>
+        <div class="error">
+        <div class="a">
+        
+        <span class= "material-symbols-outlined">
+            error
+        </span>
+        </div>
+        <div class="b">
+            <p class="error-text">please enter a valid email</p>
+            
+        </div>
+            
+        </span>
+                </div>
+            </div>
+            <div class="faild">
+                <div class="input-faild email-faild">
+            <input type="email" placeholder="Create  password" />
+            <box-icon name='hide'></box-icon>
+            </div>
+        
+        <div class="error">
+        <div class="a">
+        
+        <span class= "material-symbols-outlined">
+            error
+        </span>
+        </div>
+        <div class="b">
+            <p class="error-text">please enter atlest 8 charatcer with number  symbol, smal and capital letter</p>
+        </div>
+            
+        </span>
+                </div>
+            </div>
+            <div class="faild">
+                <div class="input-faild email-faild">
+            <input type="email" placeholder="Confirm password" />
+            <box-icon name='hide'></box-icon>
+        
+        </div>
+        <div class="error">
+        <div class="a">
+        
+        <span class= "material-symbols-outlined">
+            error
+        </span>
+        </div>
+        <div class="b">
+            <p class="error-text">possword don't mactch</p>
+        </div>
+            
+        </span>
+                </div>
+            </div>
+           <div class="faild button">
+            <input type="submit" value="submit now"/>
+             
+           </div>
+          </form>
+    </div>
+    <script>
+        const form=document.querySelector("form")
+
+emailField=form.querySelector(".email-field"),
+emailInput=emailField.querySelector(".email"),
+
+passField=form.querySelector(".create-password"),
+passInput=passField.querySelector(".password"),
+
+cPassField=form.querySelector("confirm-password"),
+cPassInput=cpassField.querySelector(".cpassword"),
+
+//Email Validation
+function checkEmail(){
+    const emailpattern=/^[^]+@[^]+\.[a-z]{2,3}$/;
+    if(!emailInput.value.match(pattern)){
+        return emailField.classList.add("invalid");//adding invalid class if email value do not matches with the email
+    }
+    emailField.classList.remove("invalid"); //removing invalid class if emali value matches
+
+}
+//Hide and show password
+const eyeIcons=document.querySelectorAll(".show-hide");
+
+eyeIcons.forEach((eyeIcons) =>{
+    eyeIcon.addEventListener("click",() =>{
+        const pInput=eyeIcon.parentElement.querySelector("input");
+     if(pInput.type === "password"){
+      eyeIcon.classList.replace("bx-hide","bx-show");
+      return(pInput.type="text");
+     }
+     eyeIcon.classList.replace("bx-show","bx-hide");
+     pInput.type="password";
+    });
+})
+//password validation
+function createpass(){
+   const passPattern=
+   /^(?=.[A-z])(?=.[A-Z])(?=.[@$!%?&])[A-Za-z\d@$1%?&]{8,}$/;
+  if(!passInput.value.match(passPattern)){
+    return passField.classList.add("invalid");
+  }
+   passField.classList.remove("invalid");
+}
+//confirm password validation
+function confirmPass(){
+    if(passInput.value !==cPassInput.value|| cPassInput.value === ""){
+       cpassField.classList.add("invalid");
+        console.log("true");
+    }
+}
+//calling function on form Submmit
+form.addEventListener("submit",(e) =>{
+    e.preventDefault()
+    checkEmail();
+    createpass();
+    confirmPass();
+
+    //calling function on key up
+    emailInput.addEventListener("keyup",checkEmail);
+    passInput.addEventListener("keyup",createpass);
+    cPassInput.addEventListener("keyup",confirmPass);
+    
+    if(!emailField.classList.contains("invalid")&&
+!passField.classList.contains("invalid")&&
+!cPassField.classList.contains("invalid")
+    ){
+        location.href=form.getAttribute("")
+    }
+});
+    </script>
+</body>
+</html>
